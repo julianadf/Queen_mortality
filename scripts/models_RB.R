@@ -1,8 +1,9 @@
 rm(list=ls())
 library(here)
 library(tidyverse)
-library(vegan)
 library(lattice)
+library(permute)
+library(vegan)
 library(ggpubr)
 library(effects)
 library(visreg)
@@ -13,7 +14,7 @@ library(car)
 library(emmeans)
 
 # Load and check data ----
-queen.data <- read.csv2(here("data", "Database.csv" ))
+queen.data <- read.csv2(here("Database.csv" ))
 
 # Take away non-queen observations
 queens <- queen.data %>% 
@@ -42,11 +43,21 @@ queen.behaviour.0
 # mod_dharma1 %>% testZeroInflation()
 
 queen.behaviour <- queen.behaviour.0 %>% 
-  filter(Behaviour %in% c("foraging", "nesting")) %>% 
+  filter(Behaviour %in% c("dead", "foraging", "nesting")) %>% 
   mutate(Behaviour = as.factor(Behaviour)) 
 queen.behaviour
 
-queen.behaviour$obs <- c(1:35)
+queen.behaviour$obs <- c(1:54)
+
+behaviour.mod <- glmer(behaviour.count ~ Behaviour * Roadverge * scale(Traffic) + (1|Site) + (1|obs), family = "poisson", data=queen.behaviour)
+summary(behaviour.mod)
+mod_dharma1 <- behaviour.mod %>% simulateResiduals(n=1000)
+plot(mod_dharma1)
+plot(allEffects(behaviour.mod))
+mod_dharma1 %>% testDispersion()
+mod_dharma1 %>% testZeroInflation()
+
+queenag <- aggregate(cbind(Visit) ~ Species, data = queens, sum, na.rm=T)
 
 behaviour.mod <- glmer(behaviour.count ~ Behaviour * Roadverge * scale(Traffic) + (1|Site), family = "poisson", data=queen.behaviour)
 summary(behaviour.mod)
@@ -61,7 +72,7 @@ queen.mortality <- queens %>%
   mutate(dead = ifelse(Behaviour=="dead", 1, 0))
 queen.mortality
 
-mortality.mod <- glm(dead ~ Roadverge + scale(Traffic) , family = "binomial", data=queen.mortality)
+mortality.mod <- glm(dead ~ Roadverge + scale(Traffic) + Species, family = "binomial", data=queen.mortality)
 summary(mortality.mod)
 Anova(mortality.mod, type=3)
 mod_dharma1 <- mortality.mod %>% simulateResiduals(n=1000)
@@ -118,11 +129,11 @@ nesters <- queens %>%
   filter(Behaviour == "nesting") %>%
   group_by(Site, Roadverge, Traffic) %>% 
   summarise(nesting = n()) %>% 
-  rows_insert(., tibble(Site ="Gottröra", Roadverge="SP", Traffic =3718, nesting=0)) %>%
+  rows_insert(., tibble(Site ="Gottr?ra", Roadverge="SP", Traffic =3718, nesting=0)) %>%
   rows_insert(., tibble(Site ="Rimbo", Roadverge="SP", Traffic =939, nesting=0)) %>%
-  rows_insert(., tibble(Site ="Rovsättra", Roadverge="SR", Traffic =267, nesting=0)) %>% 
-  rows_insert(., tibble(Site ="Tosterön", Roadverge="SP", Traffic =5764, nesting=0)) %>%
-  rows_insert(., tibble(Site ="Upplands-Väsby", Roadverge="SP", Traffic =6168, nesting=0)) 
+  rows_insert(., tibble(Site ="Rovs?ttra", Roadverge="SR", Traffic =267, nesting=0)) %>% 
+  rows_insert(., tibble(Site ="Toster?n", Roadverge="SP", Traffic =5764, nesting=0)) %>%
+  rows_insert(., tibble(Site ="Upplands-V?sby", Roadverge="SP", Traffic =6168, nesting=0)) 
 nesters
 
 nesting.mod <- glm(nesting ~ Roadverge * scale(Traffic) , family = "poisson", data=nesters)
@@ -133,30 +144,3 @@ mod_dharma2 <- nesting.mod %>% simulateResiduals(n=1000)
 plot(mod_dharma2)
 mod_dharma2 %>% testDispersion()
 mod_dharma2 %>% testZeroInflation()
-
-# Analysis without cuckoos
-cuckoos <- queens %>% 
-  filter(Species %in% c("B. sylvestris", "B. bohemicus", "B. norvegicus", "B. campestris", "B. rupestris"))
-cuckoos
-
-queen.no.cuckoo <- queens %>% 
-  filter(Species != "B. sylvestris") %>% 
-  filter(Species != "B. bohemicus") %>%
-  filter(Species != "B. norvegicus") %>%
-  filter(Species != "B. campestris") %>%
-  filter(Species != "B. rupestris") 
-queen.no.cuckoo
-
-# Does traffic and road verge quality affect queen mortality?
-queen.mortality.cuckoo <- queen.no.cuckoo %>% 
-  mutate(dead = ifelse(Behaviour=="dead", 1, 0))
-queen.mortality.cuckoo
-
-mortality.mod.cuckoo <- glm(dead ~ Roadverge + scale(Traffic) , family = "binomial", data=queen.mortality.cuckoo)
-summary(mortality.mod.cuckoo)
-Anova(mortality.mod.cuckoo, type=3)
-mod_dharma1 <- mortality.mod.cuckoo %>% simulateResiduals(n=1000)
-plot(mod_dharma1)
-plot(allEffects(mortality.mod.cuckoo))
-mod_dharma1 %>% testDispersion()
-mod_dharma1 %>% testZeroInflation()
