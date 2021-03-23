@@ -17,10 +17,10 @@ Sample;Site;Visit;Traffic;Roadverge;Verge.width;Date;Time;Temp;Weather;Wind_spee
 16;Arlanda;1;829;SR;5,41;2020-05-05;16:30;14;Almost clear;2(6);NO;E;B. pratorum;queen;nesting;6617403;667846;
 17;Arlanda;1;829;SR;5,41;2020-05-05;16:30;14;Almost clear;2(6);NO;E;B. terrestris;queen;nesting;6617413;667860;
 18;Aspön;1;5675;SR;5,38;2020-05-06;11:00;13;Cloudy;4(9);V;W;B. terrestris;queen;nesting;6595232;614426;
-19;Aspön;1;5675;SR;5,38;2020-05-06;11:00;13;Cloudy;4(9);V;W;B. terrestris?;queen;nesting;6594998;614310;
+19;Aspön;1;5675;SR;5,38;2020-05-06;11:00;13;Cloudy;4(9);V;W;unknown;queen;nesting;6594998;614310;
 20;Aspön;1;5675;SR;5,38;2020-05-06;11:00;13;Cloudy;4(9);V;W;B. terrestris;queen;nesting;6594834;614256;
 21;Aspön;1;5675;SR;5,38;2020-05-06;11:00;13;Cloudy;4(9);V;E;B. terrestris;queen;dead;6595129;614395;
-22;Aspön;1;5675;SR;5,38;2020-05-06;11:00;13;Cloudy;4(9);V;E;unknown;?;dead;6595325;614463;
+22;Aspön;1;5675;SR;5,38;2020-05-06;11:00;13;Cloudy;4(9);V;E;unknown;queen;dead;6595325;614463;
 23;Aspön;1;5675;SR;5,38;2020-05-06;11:00;13;Cloudy;4(9);V;E;B. terrestris;queen;dead;6595337;614463;
 24;Aspön;1;5675;SR;5,38;2020-05-06;11:00;13;Cloudy;4(9);V;E;B. terrestris;queen;dead;6595421;614463;
 25;Aspön;1;5675;SR;5,38;2020-05-06;11:00;13;Cloudy;4(9);V;E;B. terrestris;queen;dead;6595434;614460;
@@ -29,7 +29,7 @@ Sample;Site;Visit;Traffic;Roadverge;Verge.width;Date;Time;Temp;Weather;Wind_spee
 28;Tosterön;1;5764;SP;4,07;2020-05-06;13:40;15;Cloudy;3(8);NV;W;B. terrestris;queen;dead;6589101;614914;
 29;Strängnäs;1;372;SP;4,43;2020-05-06;14:55;17;Sunny;4(7);NV;E;B. terrestris;queen;dead;6584137;609189;
 30;Strängnäs;1;372;SP;4,43;2020-05-06;14:55;17;Sunny;4(7);NV;W;B. terrestris;queen;nesting;6584137;609189;
-31;Strängnäs;1;372;SP;4,43;2020-05-06;14:55;17;Sunny;4(7);NV;E;B. terrestris?;queen;passing;6584249;609158;
+31;Strängnäs;1;372;SP;4,43;2020-05-06;14:55;17;Sunny;4(7);NV;E;unknown;queen;passing;6584249;609158;
 32;Strängnäs;1;372;SP;4,43;2020-05-06;14:55;17;Sunny;4(7);NV;E;B. soroeensis;queen;nesting;6584867;609198;
 33;Strängnäs;1;372;SP;4,43;2020-05-06;14:55;17;Sunny;4(7);NV;E;B. terrestris;queen;nesting;6584867;609198;
 34;Strängnäs;1;372;SP;4,43;2020-05-06;14:55;17;Sunny;4(7);NV;W;B. soroeensis;queen;nesting;6584402;609176;
@@ -52,13 +52,13 @@ Sample;Site;Visit;Traffic;Roadverge;Verge.width;Date;Time;Temp;Weather;Wind_spee
 51;Sigtuna;1;6356;SR;5,231;2020-05-07;16:10;15;Sunny;3(7);NV;S;B. terrestris;queen;nesting;6615087;648482;
 52;Sigtuna;1;6356;SR;5,231;2020-05-07;16:10;15;Sunny;3(7);NV;N;B. lapidarius;queen;nesting;6615248;648699;
 53;Sigtuna;1;6356;SR;5,231;2020-05-07;16:10;15;Sunny;3(7);NV;N;B. lucorum coll.;queen;nesting;6615182;648596;
-54;Sigtuna;1;6356;SR;5,231;2020-05-07;16:10;15;Sunny;3(7);NV;N;B. lucorum;queen;dead;6615119;648521;
+54;Sigtuna;1;6356;SR;5,231;2020-05-07;16:10;15;Sunny;3(7);NV;N;B. lucorum coll.;queen;dead;6615119;648521;
 55;Sigtuna;1;6356;SR;5,231;2020-05-07;16:10;15;Sunny;3(7);NV;N;B. lucorum coll.;queen;nesting;6614933;647993;
 56;Skärplinge;1;570;SR;3,8;2020-05-08;10:15;14;Overcast;5(13);S;E;B. cryptarum;queen;passing;6712944;650387;
-57;Skärplinge;1;570;SR;3,8;2020-05-08;10:15;14;Overcast;5(13);S;W;B. lucorum;queen;nesting;6713276;650341;
+57;Skärplinge;1;570;SR;3,8;2020-05-08;10:15;14;Overcast;5(13);S;W;B. lucorum coll.;queen;nesting;6713276;650341;
 58;Skärplinge;1;570;SR;3,8;2020-05-08;10:15;14;Overcast;5(13);S;W;B. pascuorum;queen;foraging;;;
-59;Skärplinge;1;570;SR;3,8;2020-05-08;10:15;14;Overcast;5(13);S;W;B. lucorum;queen;nesting;;;
-60;Skärplinge;1;570;SR;3,8;2020-05-08;10:15;14;Overcast;5(13);S;W;B. lucorum;queen;nesting;6713233;650342;
+59;Skärplinge;1;570;SR;3,8;2020-05-08;10:15;14;Overcast;5(13);S;W;B. lucorum coll.;queen;nesting;;;
+60;Skärplinge;1;570;SR;3,8;2020-05-08;10:15;14;Overcast;5(13);S;W;B. lucorum coll.;queen;nesting;6713233;650342;
 61;Skärplinge;1;570;SR;3,8;2020-05-08;10:15;14;Overcast;5(13);S;W;B. cryptarum;queen;nesting;6713131;650342;
 62;Skärplinge;1;570;SR;3,8;2020-05-08;10:15;14;Overcast;5(13);S;W;B. lucorum coll.;queen;dead;6712932;650389;
 63;Skärplinge;1;570;SR;3,8;2020-05-08;10:15;14;Overcast;5(13);S;W;B. terrestris;queen;foraging;6712540;650504;
@@ -67,7 +67,7 @@ Sample;Site;Visit;Traffic;Roadverge;Verge.width;Date;Time;Temp;Weather;Wind_spee
 66;Skärplinge;1;570;SR;3,8;2020-05-08;10:15;14;Overcast;5(13);S;E;B. sylvarum;queen;foraging;6712785;650438;
 67;Björklinge;1;247;SP;2,88;2020-05-08;13:30;14;Cloudy;4(12);SV;N;B. terrestris;queen;dead;6653519;639351;*was actually blowing a lot
 68;Björklinge;1;247;SP;2,88;2020-05-08;13:30;14;Cloudy;4(12);SV;N;B. lucorum coll.;queen;dead;6653554;639263;
-69;Björklinge;1;247;SP;2,88;2020-05-08;13:30;14;Cloudy;4(12);SV;N;B. lucorum;queen;presumed dead;6653732;638959;*note
+69;Björklinge;1;247;SP;2,88;2020-05-08;13:30;14;Cloudy;4(12);SV;N;B. lucorum coll.;queen;presumed dead;6653732;638959;*note
 70;Björklinge;1;247;SP;2,88;2020-05-08;13:30;14;Cloudy;4(12);SV;N;B. terrestris;queen;dead;6653784;638871;
 71;Björklinge;1;247;SP;2,88;2020-05-08;13:30;14;Cloudy;4(12);SV;N;B. terrestris;queen;nesting;6653795;638852;
 72;Björklinge;1;247;SP;2,88;2020-05-08;13:30;14;Cloudy;4(12);SV;S;B. terrestris;queen;dead;6653864;638451;
@@ -99,15 +99,15 @@ Sample;Site;Visit;Traffic;Roadverge;Verge.width;Date;Time;Temp;Weather;Wind_spee
 98;Tierp;1;125;SR;3,1;2020-05-09;14:00;14;Sunny;1(6);SV;S;B. pascuorum;queen;foraging;6689427;642482;
 99;Skogs-Tibble;1;158;SP;3,98;2020-05-09;16:10;17;Cloudy;3(8);S;N;B. lucorum coll.;queen;dead;6635300;629542;
 100;Skogs-Tibble;1;158;SP;3,98;2020-05-09;16:10;17;Cloudy;3(8);S;N;unknown;queen;passing;;;
-101;Skogs-Tibble;1;158;SP;3,98;2020-05-09;16:10;17;Cloudy;3(8);S;N;B. lucorum;queen;nesting;6635310;629347;
+101;Skogs-Tibble;1;158;SP;3,98;2020-05-09;16:10;17;Cloudy;3(8);S;N;B. lucorum coll.;queen;nesting;6635310;629347;
 102;Skogs-Tibble;1;158;SP;3,98;2020-05-09;16:10;17;Cloudy;3(8);S;N;B. terrestris;queen;nesting;6635370;629167;
 103;Skogs-Tibble;1;158;SP;3,98;2020-05-09;16:10;17;Cloudy;3(8);S;N;B. ruderarius;queen;dead;6635430;629071;
 104;Skogs-Tibble;1;158;SP;3,98;2020-05-09;16:10;17;Cloudy;3(8);S;S;B. terrestris;queen;nesting;6635207;629708;
 105;Upplands-Väsby;1;6168;SP;4,76;2020-05-15;10:30;12;Sunny;3(8);SV;E;B. lucorum coll.;queen;dead;6598636;661373;
 106;Upplands-Väsby;1;6168;SP;4,76;2020-05-15;10:30;12;Sunny;3(8);SV;E;B. pascuorum;queen;dead;6599080;661450;
-107;Häggeby;1;3312;SR;4,665;2020-05-15;12:15;13;Cloudy;6;SV;E;B. terrestris?;queen;dead;6616083;641625;
+107;Häggeby;1;3312;SR;4,665;2020-05-15;12:15;13;Cloudy;6;SV;E;unknown;queen;dead;6616083;641625;
 108;Häggeby;1;3312;SR;4,665;2020-05-15;12:15;13;Cloudy;6;SV;E;B. terrestris;queen;dead;6613309;641841;
-109;Häggeby;1;3312;SR;4,665;2020-05-15;12:15;13;Cloudy;6;SV;E;B. terrestris?;queen;dead;6613329;641851;
+109;Häggeby;1;3312;SR;4,665;2020-05-15;12:15;13;Cloudy;6;SV;E;unknown;queen;dead;6613329;641851;
 110;Häggeby;1;3312;SR;4,665;2020-05-15;12:15;13;Cloudy;6;SV;E;unknown;queen;nesting;6613480;641971;
 111;Häggeby;1;3312;SR;4,665;2020-05-15;12:15;13;Cloudy;6;SV;W;B. terrestris;queen;nesting;6613393;641867;
 112;Häggeby;1;3312;SR;4,665;2020-05-15;12:15;13;Cloudy;6;SV;W;B. lucorum coll.;queen;dead;6613332;641841;
@@ -187,7 +187,7 @@ Sample;Site;Visit;Traffic;Roadverge;Verge.width;Date;Time;Temp;Weather;Wind_spee
 186;Enköping;2;841;SP;4,29;2020-05-20;16:15;15;Cloudy;2(5);NO;W;B. terrestris;queen;dead;6609874;619137;
 187;Enköping;2;841;SP;4,29;2020-05-20;16:15;15;Cloudy;2(5);NO;W;B. lucorum coll.;queen;dead;6609786;619197;
 188;Enköping;2;841;SP;4,29;2020-05-20;16:15;15;Cloudy;2(5);NO;W;B. ruderarius;queen;dead;6609634;619244;
-189;Enköping;2;841;SP;4,29;2020-05-20;16:15;15;Cloudy;2(5);NO;W;B. lucorum;queen;dead;6609586;618256;
+189;Enköping;2;841;SP;4,29;2020-05-20;16:15;15;Cloudy;2(5);NO;W;B. lucorum coll.;queen;dead;6609586;618256;
 190;Björklinge;2;247;SP;2,88;2020-05-22;10:00;15;Sunny;3(8);SO;N;B. sylvarum;worker;dead;6653514;639362;
 191;Björklinge;2;247;SP;2,88;2020-05-22;10:00;15;Sunny;3(8);SO;N;B. ruderarius;queen;nesting;6653518;639352;
 192;Björklinge;2;247;SP;2,88;2020-05-22;10:00;15;Sunny;3(8);SO;N;unknown;queen;nesting;6653560;639252;
@@ -262,7 +262,7 @@ Sample;Site;Visit;Traffic;Roadverge;Verge.width;Date;Time;Temp;Weather;Wind_spee
 261;Arlanda;2;829;SR;5,41;2020-05-26;09:30;17;Sunny;1(4);O;W;B. pascuorum;queen;foraging;6617374;667802;
 262;Arlanda;2;829;SR;5,41;2020-05-26;09:30;17;Sunny;1(4);O;E;B. lucorum coll.;queen;dead;6617379;667817;
 263;Arlanda;2;829;SR;5,41;2020-05-26;09:30;17;Sunny;1(4);O;E;B. lucorum coll.;queen;dead;6617410;667851;
-264;Arlanda;2;829;SR;5,41;2020-05-26;09:30;17;Sunny;1(4);O;E;B. lucorum;queen;dead;6617621;668094;
+264;Arlanda;2;829;SR;5,41;2020-05-26;09:30;17;Sunny;1(4);O;E;B. lucorum coll.;queen;dead;6617621;668094;
 265;Gottröra;2;3718;SP;4,4;2020-05-26;12:00;20;Sunny;2(7);V;N;B. sylvarum;queen;passing;6626825;676586;
 266;Gottröra;2;3718;SP;4,4;2020-05-26;12:00;20;Sunny;2(7);V;N;B. terrestris;queen;dead;6626852;676491;
 267;Gottröra;2;3718;SP;4,4;2020-05-26;12:00;20;Sunny;2(7);V;N;unknown;queen;dead;6626878;676381;

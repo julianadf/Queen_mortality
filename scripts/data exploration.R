@@ -18,7 +18,7 @@ queen.data <- read.csv2(here("data", "Database.csv" ))
 queens <- queen.data %>% 
   mutate(Site = as.factor(Site)) %>% 
   mutate(Roadverge = as.factor(Roadverge)) %>% 
-  filter(Caste == "queen")
+  filter(Caste == "queen") 
 str(queens)
 
 ggplot(queens, aes(x=fct_infreq(Site), fill=Behaviour)) + geom_bar(stat="count") + 
@@ -28,28 +28,54 @@ nesting <- queens[which(queens$Behaviour=="nesting"),]
 
 ggplot(nesting, aes(x=Roadverge)) + geom_bar()
 
+# Figure for publication
 # Look at differences in behaviour between species poor and species rich sites
 ggplot(queens, aes(x=Behaviour)) + geom_bar(aes(fill=Roadverge), stat="count", position = position_dodge()) + 
-  theme_classic() + theme(text = element_text(size=14), axis.text.x.bottom = element_text(size=15, family="serif"), axis.text.y.left = element_text(size=14))
+  theme_classic() + theme(text = element_text(size=14), axis.text.x.bottom = element_text(size=15, family="serif"), 
+                          axis.text.y.left = element_text(size=14), legend.position = c(0.8,0.7)) +
+  labs(y=NULL) +
+  scale_fill_manual(values=c("SP"="#0571b0", "SR"="#ca0020"),
+                    name = "Road verge", labels = c("Low habitat quality", "High habitat quality")) 
+  
+  
+  #geom_text(stat = "count", aes(label = stat(count), y = stat(count) ), position = position_stack(0.5) )
 
 # Look at species richness between poor and rich sites
-queens.obs <- queens %>% 
+queen.data.fig <- read.csv2(here("data", "Database_for_figures.csv" ))
+
+# Take away non-queen observations
+queens.fig <- queen.data.fig %>% 
+  mutate(Site = as.factor(Site)) %>% 
+  mutate(Roadverge = as.factor(Roadverge)) %>% 
+  filter(Caste == "queen") 
+str(queens.fig)
+
+queens.obs.fig <- queens.fig %>% 
   group_by(Site, Roadverge, Traffic, Species) %>% 
   summarise(obs = n())
-queens.obs
-  
-ggplot(queens, aes(x=fct_infreq(Species), fill=Behaviour)) + geom_bar(stat="count") +
-  theme(axis.text.x = element_text(angle = 90), legend.position = c(0.9, 0.8), axis.text.x.bottom = element_text(size=15, family="serif"))
+queens.obs.fig
+# for publication:
+ggplot(queens.fig, aes(x=fct_infreq(Species), fill=Behaviour)) + geom_bar(stat="count") + labs(x=NULL, y=NULL) + 
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 90, face="italic"), legend.position = c(0.9, 0.7), 
+        axis.text.y.left = element_text(size=14), axis.text.x.bottom = element_text(size=15, family="serif"))  
 
-queen.rich <- queens.obs %>% 
+                          
+
+queen.rich <- queens.obs.fig %>% 
   filter(Species != "B. terrestris?") %>% 
   group_by(Site, Roadverge, Traffic) %>% 
   summarise(rich = n())
 queen.rich
 
-rich.mod <- lm(rich ~ Roadverge + Traffic, data = queen.rich)
+rich.mod <- glm(rich ~ Roadverge + scale(Traffic), family="quasipoisson", data = queen.rich)
 summary(rich.mod)
-visreg(rich.mod)
+mod_dharma1 <- rich.mod %>% simulateResiduals(n=1000)
+plot(mod_dharma1)
+plot(allEffects(rich.mod))
+mod_dharma1 %>% testDispersion()
+mod_dharma1 %>% testZeroInflation()
+visreg(rich.mod, scale="response")
 
 # Select only "dead" observations and create database
 dead <- queens %>% 
@@ -150,4 +176,10 @@ mod_dharma <- width.mod %>% simulateResiduals(n=1000)
 plot(mod_dharma)
 mod_dharma %>% testDispersion()
 mod_dharma %>% testZeroInflation()
+
+# Summary for each species
+species.table <- queens %>% 
+  group_by(Species, Behaviour) %>% 
+  summarise(indiv=n())
+species.table
 

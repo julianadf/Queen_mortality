@@ -11,9 +11,16 @@ library(MASS)
 library(lme4)
 library(car)
 library(emmeans)
+library(jtools)
+library(merTools)
+library(cowplot)
+library(sjPlot)
+library(MuMIn)
+library(ggeffects)
+library(png)
 
 # Load and check data ----
-queen.data <- read.csv2(here("data", "Database.csv" ))
+queen.data <- read.csv2(here("data", "Database_for_figures.csv" ))
 
 
 # Take away non-queen observations
@@ -29,12 +36,51 @@ queen.mortality
 
 mortality.glmm <- glmer(dead ~ Roadverge + scale(Traffic) + (1| Species), family = "binomial", data=queen.mortality)
 summary(mortality.glmm)
-mod_dharma1 <- mortality.glmm %>% simulateResiduals(n=1000)
-plot(mod_dharma1)
+summ(mortality.glmm, exp=TRUE)
 plot(allEffects(mortality.glmm))
-mod_dharma1 %>% testDispersion()
-mod_dharma1 %>% testZeroInflation()
+# to get the chi square
+options(contrasts = c("contr.sum","contr.poly"))
+Anova(mortality.glmm, type="3")
+options(contrasts = c("contr.treatment","contr.poly"))
 
+# Figure 2a for publication
+effects_mortality <- effects::effect(term= "scale(Traffic)", mod= mortality.glmm)
+summary(effects_mortality)
+x_traffic <- as.data.frame(effects_mortality)
+
+traffic.plot <- ggplot() + #geom_point(data=subset(queen.mortality), aes(Traffic, dead), position = "jitter") +
+  #geom_point(data = x_traffic, aes(x=Traffic, y=fit), color="blue") +
+  geom_line(data = x_traffic, aes(x=Traffic, y=fit), color="black") + 
+  geom_ribbon(data= x_traffic, aes(x=Traffic, ymin=lower, ymax=upper), alpha=0.3, fill="grey") +
+  labs(x="Traffic intensity", y="P(dead)") +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), panel.border = element_rect(colour = "black", fill=NA, size=0.5), axis.text.x.bottom = element_text(size=14, family="serif"), axis.text.y.left = element_text(size=14, family="serif"),
+        axis.title.y = element_text(size=18, family="serif"), axis.title.x = element_text(size=20, family="serif")) 
+traffic.plot  
+# add label
+a <- readPNG("//storage.slu.se/Home$/jada0002/My Documents/My Pictures/Illustrations/a.png")
+ggdraw(traffic.plot) + draw_image(a, x = 0.199, y = 1.01, hjust = 1, vjust = 1, width = 0.13, height = 0.13) 
+
+# Figure 2b for publication
+plot.mod.mortality <- emmeans(mortality.glmm, "Roadverge", type="response")
+pairs(plot.mod.mortality)
+plot(plot.mod.mortality, comparisons=TRUE)
+
+plot.roadverge.dead <- emmip(mortality.glmm, ~  "Roadverge", type="response",  CIs = TRUE, plotit = FALSE) 
+
+gg.model <- ggplot(plot.roadverge.dead, aes(x=Roadverge, y=yvar), colour=Roadverge) + 
+  geom_pointrange(size = 0.8, aes(x= Roadverge, ymin=LCL, ymax=UCL), colour="black") +
+  labs(x="Road verge quality", y = "P(dead)") +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), panel.border = element_rect(colour = "black", fill=NA, size=0.5), axis.text.x.bottom = element_text(size=14, family="serif"), axis.text.y.left = element_text(size=14, family="serif"),
+        axis.title.y = element_text(size=18, family="serif"), axis.title.x = element_text(size=20, family="serif"))  
+gg.model
+gg.model <- gg.model + scale_x_discrete(labels=c("SP" = "Low", "SR" = "High")) 
+
+# add label
+b <- readPNG("//storage.slu.se/Home$/jada0002/My Documents/My Pictures/Illustrations/b.png")
+ggdraw(gg.model) + draw_image(b, x = 0.199, y = 1.01, hjust = 1, vjust = 1, width = 0.13, height = 0.13) 
+
+
+# ----
 # Bombus terrestris ----
 terrestris <- queens %>% 
   filter(Species == "B. terrestris") 
@@ -289,3 +335,37 @@ plot(mod_dharma1)
 mod_dharma1 %>% testDispersion()
 mod_dharma1 %>% testZeroInflation()
 visreg(ternesting.bin.mod, "Traffic", by="Roadverge", scale="response")
+
+# random plotting code ----
+
+# figure for publication
+confint(mortality.glmm)
+sjPlot::plot_model(mortality.glmm) # plots effect sizes
+sjPlot::tab_model(mortality.glmm)
+mod_dharma1 <- mortality.glmm %>% simulateResiduals(n=1000)
+plot(mod_dharma1)
+plot(allEffects(mortality.glmm))
+mod_dharma1 %>% testDispersion()
+mod_dharma1 %>% testZeroInflation()
+visreg(mortality.glmm, scale="response")
+# ggplot
+
+# Road verge
+effects_mortality2 <- effects::effect(term= "Roadverge", mod= mortality.glmm)
+summary(effects_mortality2)
+x_roadverge <- as.data.frame(effects_mortality2)
+
+roadverge.plot <- ggplot() + #geom_point(data=subset(queen.mortality), aes(Roadverge, dead), position = "jitter") +
+  geom_boxplot(data = x_roadverge, aes(x=Roadverge , y=fit), color="blue") +
+  #geom_line(data = x_roadverge, aes(x=Roadverge , y=fit), color="blue") + 
+  geom_ribbon(data= x_roadverge, aes(x=Roadverge , ymin=lower, ymax=upper), alpha=0.3, fill="blue") +
+  labs(x="Road verge quality", y="Proportion of dead queens")
+roadverge.plot 
+
+
+# plotting
+traffic <- ggpredict(mortality.glmm, terms = "Traffic[all]")
+ggplot(traffic, aes(x, predicted)) + geom_line() + labs(x="Traffic intensity", y="P(dead)")
+plot(traffic, grid=FALSE, colors="red", use.theme = FALSE )
+
+residuals = TRUE, residuals.line = TRUE
